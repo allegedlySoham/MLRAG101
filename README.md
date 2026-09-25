@@ -32,6 +32,7 @@ only the relevant paragraphs first, then feeding just those into the LLM.
 | PDF text extraction | `pypdf` |
 | Chunking | custom (fixed-size, with overlap) |
 | Embeddings | `sentence-transformers` (`all-MiniLM-L6-v2`), local, no API key |
+| Similarity | custom cosine similarity function |
 | Vector DB | ChromaDB (local) |
 | LLM for answering | Gemini API (free tier) |
 | Interface | CLI first, then Streamlit |
@@ -42,7 +43,9 @@ only the relevant paragraphs first, then feeding just those into the LLM.
 MLRAG101/
   textExtraction.py   # extraction(pdfname) -> full text from a PDF, all pages
   chunking.py          # chunking(text) -> list of overlapping text chunks
-  main.py               # wires extraction -> chunking together
+  similarity.py         # cosine_similarity(a, b) -> similarity score for any-length vectors
+  embedding.py          # embed(text) -> 384-dim vector via sentence-transformers
+  main.py               # wires extraction -> chunking -> embedding together
   requirements.txt
 ```
 
@@ -55,7 +58,7 @@ Building over 21 days, started Sept 23, 2026.
 - [x] Phase 3 — Environment setup
 - [x] Phase 4 — PDF text extraction (all pages, via `pypdf`)
 - [x] Phase 5 — Chunking (fixed-size, overlap, verified against real notes)
-- [ ] Phase 6 — Generate embeddings
+- [x] Phase 6 — Generate embeddings (sentence-transformers, verified with own cosine similarity function against real chunks)
 - [ ] Phase 7 — Store in ChromaDB
 - [ ] Phase 8 — Retrieval
 - [ ] Phase 9 — LLM Q&A
